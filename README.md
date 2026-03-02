@@ -1,16 +1,19 @@
-# React + Vite
+About CamPass
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CamPass is a digital railway concession management system designed to simplify and modernize the concession application process for college students and institutions. The platform replaces the traditional paper-based workflow with a secure, transparent, and user-friendly digital solution.
 
-Currently, two official plugins are available:
+CamPass allows students to register, upload required documents such as Aadhaar card, electricity bill, and caste certificate (if applicable), and apply for railway concessions directly through an online dashboard. The system validates inputs like station names, document completeness, and user eligibility to reduce errors and prevent misuse.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The platform also provides a dedicated admin interface for college staff, enabling document verification and approval in a structured and efficient manner. Once verified, the system is designed to generate concession-related data in a standardized format, reducing manual work and processing time.
 
-## React Compiler
+CamPass focuses strongly on:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Accuracy through strict validations (PRN format, station validation, required documents)
 
-## Expanding the ESLint configuration
+Accessibility & usability with a clean interface and guided workflows
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Security & transparency by maintaining role-based access for students and administrators
+
+Scalability for future integration with college systems and railway authorities
+
+By digitizing the entire concession lifecycle, CamPass aims to reduce paperwork, save time for students and staff, and make the concession process faster, more reliable, and more accessible.
