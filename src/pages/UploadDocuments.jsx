@@ -96,7 +96,7 @@ function UploadDocuments() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        {/* DOCUMENTS */}
+        {/* --- Aadhaar Card Field --- */}
         <div className="doc-field">
           <label>Aadhaar Card *</label>
           <input
@@ -106,6 +106,7 @@ function UploadDocuments() {
           />
         </div>
 
+        {/* --- Electricity Bill Field --- */}
         <div className="doc-field">
           <label>Electricity Bill *</label>
           <input
@@ -115,6 +116,7 @@ function UploadDocuments() {
           />
         </div>
 
+        {/* --- Caste Certificate Field (Conditional) --- */}
         {category === "scst" && (
           <div className="doc-field">
             <label>Caste Certificate *</label>
