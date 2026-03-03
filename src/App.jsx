@@ -18,6 +18,7 @@ import AcademicCycleManagement from "./pages/AdminDashboard/AcademicCycleManagem
 
 import AdminHome from "./pages/AdminDashboard/AdminHome";
 
+import ProtectedStudentRoute from "./routes/ProtectedStudentRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
 
         {/* STUDENT DASHBOARD */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="/dashboard" element={<ProtectedStudentRoute><DashboardLayout /></ProtectedStudentRoute>}>
           <Route index element={<UserDashboard />} />
           <Route path="upload" element={<UploadDocuments />} />
         </Route>

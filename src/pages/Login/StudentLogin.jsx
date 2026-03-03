@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "../../styles/Login/auth.css";
 import "../../styles/Components Files/footer.css";
 
@@ -6,6 +12,7 @@ function StudentLogin() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light"
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
@@ -29,7 +36,7 @@ function StudentLogin() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -42,11 +49,11 @@ function StudentLogin() {
     }
 
     // 🔴 PRN Strict Check (Exactly 18 chars: 2 letters + 16 digits)
-    const prnPattern = /^[A-Z]{2}[0-9]{16}$/;
+    const prnPattern = /^[0-9]{9}$/;
 
     if (!prnPattern.test(prn)) {
       setError(
-        "PRN must be exactly 18 characters: 2 capital letters followed by 16 digits."
+        "PRN must be exactly 9 digits compulsory"
       );
       return;
     }
@@ -60,6 +67,30 @@ function StudentLogin() {
     }
 
     console.log("Student Login:", studentData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/students/login",
+        studentData
+      );
+
+      if (response.data.success) {
+        localStorage.setItem(
+          "student",
+          JSON.stringify(response.data.student)
+        );
+
+        toast.success("Login Successful 🎉");
+
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1500);
+      }
+
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Login failed ❌"
+      );
+    }
   };
 
   return (

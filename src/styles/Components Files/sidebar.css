@@ -1,8 +1,9 @@
 /* MAIN SIDEBAR */
 .sidebar {
   width: 260px;
+  min-width: 260px;   /* 🔥 prevents shrinking */
+  flex-shrink: 0;     /* 🔥 VERY IMPORTANT */
   height: 100vh;
-  color: white;
   display: flex;
   flex-direction: column;
   background-color: var(--sidebar-bg);
