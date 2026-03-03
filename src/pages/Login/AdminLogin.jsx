@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "../styles/auth.css";
-import "../styles/footer.css";
+import "../../styles/Login/auth.css";
+import "../../styles/Components Files/footer.css";
 
 function AdminLogin() {
   const [theme, setTheme] = useState(

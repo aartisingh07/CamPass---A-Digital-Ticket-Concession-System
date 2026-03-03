@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "../styles/dashboard.css";
+import "../styles/UserDashboard/dashboard.css";
 
 function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

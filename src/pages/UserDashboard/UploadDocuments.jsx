@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import "../styles/uploadDocuments.css";
-import centralStations from "../data/centralStations.json";
-import westernStations from "../data/westernStations.json";
-import harbourStations from "../data/harbourStations.json";
+import "../../styles/UserDashboard/uploadDocuments.css";
+
+import centralStations from "../../data/centralStations.json";
+import westernStations from "../../data/westernStations.json";
+import harbourStations from "../../data/harbourStations.json";
 
 
 function UploadDocuments() {

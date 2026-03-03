@@ -1,4 +1,4 @@
-import "../styles/dashboard.css";
+import "../styles/UserDashboard/dashboard.css";
 
 function DashboardCard({ title, image }) {
   return (

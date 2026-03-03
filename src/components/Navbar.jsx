@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "../styles/navbar.css";
+import "../styles/Components Files/navbar.css";
 
 function Navbar({ toggleSidebar }) {
   const [open, setOpen] = useState(false);
