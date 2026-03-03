@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home";
 
@@ -9,9 +11,20 @@ import UploadDocuments from "./pages/UserDashboard/UploadDocuments";
 import StudentLogin from "./pages/Login/StudentLogin";
 import AdminLogin from "./pages/Login/AdminLogin";
 
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import StudentsList from "./pages/AdminDashboard/StudentsList";
+import Reports from "./pages/AdminDashboard/Reports";
+import AcademicCycleManagement from "./pages/AdminDashboard/AcademicCycleManagement";
+
+import AdminHome from "./pages/AdminDashboard/AdminHome";
+
+import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
+
 function App() {
   return (
     <BrowserRouter>
+    <ToastContainer position="top-right" autoClose={2000} />
+
       <Routes>
 
         {/* HOME */}
@@ -25,6 +38,14 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<UserDashboard />} />
           <Route path="upload" element={<UploadDocuments />} />
+        </Route>
+
+        {/* ADMIN DASHBOARD */}
+        <Route path="/admin-dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>}>
+          <Route index element={<AdminHome />} />
+          <Route path="students" element={<StudentsList />} />
+          <Route path="academic-cycle" element={<AcademicCycleManagement />} />
+          <Route path="reports" element={<Reports />} />
         </Route>
 
         {/* FALLBACK */}
