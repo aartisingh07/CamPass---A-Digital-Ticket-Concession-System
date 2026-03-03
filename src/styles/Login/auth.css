@@ -1,0 +1,89 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+.auth-header {
+  height: 64px;
+  background: linear-gradient(to right, #0f3d5e, #1e6091);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  color: #fff;
+}
+
+.auth-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.theme-toggle {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.auth-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* change from center */
+  padding-top: 80px;         /* add space from header */
+}
+
+form {
+  background: #fff;
+  padding: 50px;
+  border-radius: 12px;
+  width: 380px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+form h1 {
+  margin-bottom: 25px;
+  color: #0f3d5e;
+}
+
+input {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #0f3d5e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+form input {
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d9e6;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #0f3d5e;
+  box-shadow: 0 0 0 2px rgba(15, 61, 94, 0.15);
+}

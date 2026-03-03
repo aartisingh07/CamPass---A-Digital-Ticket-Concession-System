@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DashboardCard from "../components/DashboardCard";
+import DashboardCard from "../../components/DashboardCard";
 
 function UserDashboard() {
   const [activeSection, setActiveSection] = useState("dashboard");

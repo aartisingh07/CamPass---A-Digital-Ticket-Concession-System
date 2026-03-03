@@ -1,28 +1,32 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import DashboardLayout from "./layouts/DashboardLayout";
-import UserDashboard from "./pages/UserDashboard";
+import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import UploadDocuments from "./pages/UploadDocuments";
-import RegisterSlide from "./pages/RegisterSlide";
+
+import StudentLogin from "./pages/Login/StudentLogin";
+import AdminLogin from "./pages/Login/AdminLogin";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* ✅ ROOT REDIRECT */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* ROOT REDIRECT → Send to Home later */}
+        <Route path="/" element={<Navigate to="/student-login" replace />} />
 
-        {/* ✅ LOGIN PAGE (OUTSIDE DASHBOARD) */}
-        <Route path="/login" element={<RegisterSlide />} />
+        {/* AUTH ROUTES */}
+        <Route path="/student-login" element={<StudentLogin />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
 
-        {/* ✅ DASHBOARD LAYOUT */}
+        {/* DASHBOARD (Student) */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<UserDashboard />} />
           <Route path="upload" element={<UploadDocuments />} />
         </Route>
 
-        {/* ✅ FALLBACK */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* FALLBACK */}
+        <Route path="*" element={<Navigate to="/student-login" replace />} />
 
       </Routes>
     </BrowserRouter>
