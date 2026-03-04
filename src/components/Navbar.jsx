@@ -1,30 +1,69 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "../styles/Components Files/navbar.css";
 
 function Navbar({ toggleSidebar }) {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "light"
-  );
   const profileRef = useRef(null);
+
+  const [notifOpen, setNotifOpen] = useState(false);
+  const notifRef = useRef(null);
+
+  const [notifications, setNotifications] = useState([
+    { id: 1, text: "Wait for approval of uploaded documents", read: false },
+    { id: 2, text: "Your uploaded documents were approved", read: false },
+    { id: 3, text: "Concession application submitted successfully", read: true },
+    { id: 4, text: "Re-upload documents for new academic year", read: false }
+  ]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
 
   // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+    const handleClickOutside = (event) => {
+
+      // Close profile dropdown
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
         setOpen(false);
       }
-    }
+
+      // Close notification dropdown
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(event.target)
+      ) {
+        setNotifOpen(false);
+      }
+
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [profileRef, notifRef]);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+
+    navigate("/login", { replace: true });
+  };
+
+  const [student, setStudent] = useState(null);
   useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    const storedStudent = JSON.parse(localStorage.getItem("student"));
+    if (storedStudent) {
+      setStudent(storedStudent);
+    }
+  }, []);
 
   return (
     <div className="top-header">
@@ -47,27 +86,45 @@ function Navbar({ toggleSidebar }) {
 
       {/* RIGHT */}
       <div className="header-right">
-        <span
-          className="icon theme-toggle"
-          onClick={() =>
-            setTheme(theme === "light" ? "dark" : "light")
-          }
-          title="Toggle theme"
-        >
-          {theme === "light" ? "🌙" : "☀️"}
-        </span>
-        <span className="header-divider"></span>
 
-        <span className="icon">🔔</span>
-        <span className="header-divider"></span>
+        <div className="notification-wrapper" ref={notifRef}>
+        <div className="bell-icon" onClick={(e) => {e.stopPropagation();setNotifOpen(prev => !prev);
+          setNotifications(prev =>
+            prev.map(n => ({ ...n, read: true }))
+          );
+        }}>
+          <span className="icon">🔔</span>
 
-        <span className="icon">✉️</span>
+          {unreadCount > 0 && (
+            <span className="notif-badge">{unreadCount}</span>
+          )}
+        </div>
+
+        {notifOpen && (
+          <div className="notif-dropdown">
+            <h4>Notifications</h4>
+
+            {notifications.length === 0 ? (
+              <p className="no-notif">No notifications</p>
+            ) : (
+              notifications.map((n) => (
+                <div
+                  key={n.id}
+                  className={`notif-item ${!n.read ? "unread" : ""}`}
+                >
+                  {n.text}
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
         <span className="header-divider"></span>
 
         <div
           className="profile-wrapper"
           ref={profileRef}
-          onClick={() => setOpen(!open)}
+          onClick={(e) => {e.stopPropagation();setOpen(prev => !prev);}}
         >
           <div className="profile-icon-circle">
             <i className="fa-solid fa-user"></i>
@@ -75,7 +132,15 @@ function Navbar({ toggleSidebar }) {
 
           {open && (
             <div className="dropdown">
-              <button className="logout-btn">Logout</button>
+              {student && (
+                <div className="profile-info">
+                  <strong>{student.name}</strong>
+                  <p>PRN: {student.prn}</p>
+                </div>
+              )}
+
+              <div className="dropdown-divider"></div>
+              <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
           )}
         </div>

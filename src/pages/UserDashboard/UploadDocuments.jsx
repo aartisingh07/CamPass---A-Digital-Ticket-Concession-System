@@ -156,6 +156,24 @@ function UploadDocuments() {
           Upload Documents
         </button>
       </form>
+      {/* IMPORTANT INSTRUCTIONS */}
+      <div className="instructions-box">
+        <h3>
+          <i className="fa-solid fa-circle-info"></i> Important Instructions Before Uploading Documents
+        </h3>
+
+        <ul>
+          <li>Upload clear scanned copies or photos of the required documents.</li>
+          <li>Ensure all text and numbers are clearly visible in the uploaded files.</li>
+          <li>Accepted file formats: <strong>PDF, JPG, JPEG, PNG</strong>.</li>
+          <li>Maximum file size for each document: <strong>2 MB</strong>.</li>
+          <li>The Aadhaar card must match the student's registered name and PRN details.</li>
+          <li>The electricity bill must show the current residential address of the student.</li>
+          <li>Make sure the From and To stations are entered correctly before submitting.</li>
+          <li>Uploading incorrect or unclear documents may lead to rejection of the concession application.</li>
+          <li>Once submitted, documents cannot be edited until the admin reviews the application.</li>
+        </ul>
+      </div>
     </div>
   );
 }

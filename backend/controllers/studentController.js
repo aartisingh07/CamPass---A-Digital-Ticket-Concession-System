@@ -1,13 +1,14 @@
 const Student = require("../models/Student");
 
 const studentLogin = async (req, res) => {
-  const { prn, name, mobile } = req.body;
+  const { prn, name, mobile, password } = req.body;
 
   try {
     const student = await Student.findOne({
       prn,
       name,
-      mobile
+      mobile,
+      password
     });
 
     if (!student) {

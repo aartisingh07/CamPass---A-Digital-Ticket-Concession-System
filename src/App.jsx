@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import DashboardLayout from "./layouts/DashboardLayout";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import UploadDocuments from "./pages/UserDashboard/UploadDocuments";
+import Profile from "./pages/UserDashboard/Profile";
+import ApplyConcession from "./pages/UserDashboard/ApplyConcession";
+import MyConcession from "./pages/UserDashboard/MyConcession";
 
 import StudentLogin from "./pages/Login/StudentLogin";
 import AdminLogin from "./pages/Login/AdminLogin";
@@ -39,6 +42,10 @@ function App() {
         <Route path="/dashboard" element={<ProtectedStudentRoute><DashboardLayout /></ProtectedStudentRoute>}>
           <Route index element={<UserDashboard />} />
           <Route path="upload" element={<UploadDocuments />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="apply" element={<ApplyConcession />} />
+          {/* Future: <Route path="notifications" element={<Notifications />} /> */}
+          <Route path="concession" element={<MyConcession />} />
         </Route>
 
         {/* ADMIN DASHBOARD */}

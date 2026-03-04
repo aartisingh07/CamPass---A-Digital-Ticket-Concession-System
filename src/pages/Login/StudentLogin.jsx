@@ -23,6 +23,7 @@ function StudentLogin() {
     prn: "",
     name: "",
     mobile: "",
+    password: "",
   });
 
   const [error, setError] = useState("");
@@ -40,10 +41,10 @@ function StudentLogin() {
     e.preventDefault();
     setError("");
 
-    const { prn, name, mobile } = studentData;
+    const { prn, name, mobile, password } = studentData;
 
     // 🔴 All required
-    if (!prn || !name || !mobile) {
+    if (!prn || !name || !mobile || !password) {
       setError("All fields are required.");
       return;
     }
@@ -139,6 +140,15 @@ function StudentLogin() {
             value={studentData.mobile}
             onChange={handleChange}
             maxLength={10}
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={studentData.password}
+            onChange={handleChange}
             required
           />
 

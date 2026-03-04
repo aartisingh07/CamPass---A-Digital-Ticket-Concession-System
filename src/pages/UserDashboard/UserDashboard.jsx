@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 import DashboardCard from "../../components/DashboardCard";
 
 function UserDashboard() {
@@ -15,30 +17,21 @@ function UserDashboard() {
     navigate("/login", { replace: true });
   };
 
+  const [studentName, setStudentName] = useState("");
+
+  useEffect(() => {
+    const student = JSON.parse(localStorage.getItem("student"));
+    if (student) {
+      setStudentName(student.name);
+    }
+  }, []);
+
   return (
     <>
-      {/* LOGOUT BUTTON */}
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button
-          onClick={handleLogout}
-          style={{
-            background: "#c0392b",
-            color: "#fff",
-            border: "none",
-            padding: "8px 16px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            marginBottom: "10px"
-          }}
-        >
-          Logout
-        </button>
-      </div>
-
       {/* DASHBOARD HOME */}
       {activeSection === "dashboard" && (
         <>
-          <h2 className="welcome-text">Welcome, Student 👋</h2>
+          <h2 className="welcome-text">Welcome, {studentName} 👋</h2>
 
           <div className="dashboard-box">
             <div className="card-grid">

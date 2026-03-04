@@ -50,13 +50,6 @@ function Sidebar({ closeSidebar }) {
           </li>
         </NavLink>
 
-        <NavLink to="/dashboard/notifications" onClick={handleClick}>
-          <li>
-            <i className="fa-solid fa-bell"></i>
-            <span>Notifications</span>
-          </li>
-        </NavLink>
-
         <NavLink to="/dashboard/concession" onClick={handleClick}>
           <li>
             <i className="fa-solid fa-id-card"></i>
