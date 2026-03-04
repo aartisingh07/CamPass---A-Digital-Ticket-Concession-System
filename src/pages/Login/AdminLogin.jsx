@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Login/auth.css";
 import "../../styles/Components Files/footer.css";
 
@@ -17,18 +18,20 @@ function AdminLogin() {
     console.log("Admin Login");
   };
 
+  const navigate = useNavigate();
   return (
     <div className="auth-page">
       <header className="auth-header">
         <h2>CamPass - Admin Login</h2>
-        <span
-          className="theme-toggle"
-          onClick={() =>
-            setTheme(theme === "light" ? "dark" : "light")
-          }
+        <button
+          className="back-home-btn"
+          onClick={() => {
+            navigate("/", { replace: true });
+          }}
         >
-          {theme === "light" ? "🌙" : "☀️"}
-        </span>
+          <i className="fa-solid fa-arrow-left"></i>
+          Back to Home
+        </button>
       </header>
 
       <div className="auth-container">

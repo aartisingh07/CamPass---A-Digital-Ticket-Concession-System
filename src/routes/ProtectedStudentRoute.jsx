@@ -1,12 +1,11 @@
-import { Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Navigate, useLocation } from "react-router-dom";
 
 const ProtectedStudentRoute = ({ children }) => {
-  const student = localStorage.getItem("student");
+  const student = JSON.parse(localStorage.getItem("student"));
+  const location = useLocation();
 
   if (!student) {
-    toast.error("Please login first 🚫");
-    return <Navigate to="/student-login" replace />;
+    return <Navigate to="/student-login" replace state={{ from: location }} />;
   }
 
   return children;

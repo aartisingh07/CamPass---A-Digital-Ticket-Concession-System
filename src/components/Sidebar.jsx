@@ -63,7 +63,10 @@ function Sidebar({ closeSidebar }) {
       <div className="sidebar-bottom">
         <button
           className="back-home-btn"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            localStorage.removeItem("student"); // clear session
+            navigate("/", { replace: true });
+          }}
         >
           <i className="fa-solid fa-arrow-left"></i>
           Back to Home

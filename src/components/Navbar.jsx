@@ -13,8 +13,7 @@ function Navbar({ toggleSidebar }) {
   const [notifications, setNotifications] = useState([
     { id: 1, text: "Wait for approval of uploaded documents", read: false },
     { id: 2, text: "Your uploaded documents were approved", read: false },
-    { id: 3, text: "Concession application submitted successfully", read: true },
-    { id: 4, text: "Re-upload documents for new academic year", read: false }
+    { id: 3, text: "Re-upload documents for new academic year", read: false }
   ]);
 
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -51,10 +50,9 @@ function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
+    localStorage.removeItem("student");
 
-    navigate("/login", { replace: true });
+    navigate("/student-login", { replace: true });
   };
 
   const [student, setStudent] = useState(null);
