@@ -22,41 +22,40 @@ function Sidebar({ closeSidebar }) {
       {/* MENU */}
       <ul className="sidebar-menu">
 
-        <NavLink to="/dashboard" end onClick={handleClick}>
-          <li>
+        <li>
+          <NavLink to="/dashboard" end onClick={handleClick}>
             <i className="fa-solid fa-table-columns"></i>
             <span>Dashboard</span>
-          </li>
-        </NavLink>
+          </NavLink>
+        </li>
 
-        <NavLink to="/dashboard/apply" onClick={handleClick}>
-          <li>
+        <li>
+          <NavLink to="/dashboard/apply" onClick={handleClick}>
             <i className="fa-solid fa-file-signature"></i>
             <span>Apply for Concession</span>
-          </li>
-        </NavLink>
+          </NavLink>
+        </li>
 
-        <NavLink to="/dashboard/upload" onClick={handleClick}>
-          <li>
+        <li>
+          <NavLink to="/dashboard/upload" onClick={handleClick}>
             <i className="fa-solid fa-upload"></i>
             <span>Upload Documents</span>
-          </li>
         </NavLink>
+        </li>
 
-        <NavLink to="/dashboard/profile" onClick={handleClick}>
-          <li>
+        <li>
+          <NavLink to="/dashboard/profile" onClick={handleClick}>
             <i className="fa-solid fa-user"></i>
             <span>Profile Details</span>
-          </li>
-        </NavLink>
+          </NavLink>
+        </li>
 
-        <NavLink to="/dashboard/concession" onClick={handleClick}>
-          <li>
+        <li>
+          <NavLink to="/dashboard/concession" onClick={handleClick}>
             <i className="fa-solid fa-id-card"></i>
             <span>My Concession</span>
-          </li>
         </NavLink>
-
+        </li>
       </ul>
 
       {/* BACK TO HOME */}

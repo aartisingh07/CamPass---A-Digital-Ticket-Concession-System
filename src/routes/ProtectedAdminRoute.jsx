@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProtectedAdminRoute = ({ children }) => {
-  const isAdminLoggedIn = localStorage.getItem("adminToken");
+  const isAdminLoggedIn = localStorage.getItem("admin");
 
   useEffect(() => {
     if (!isAdminLoggedIn) {

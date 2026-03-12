@@ -51,6 +51,11 @@
   font-size: 20px;
 }
 
+.admin-email {
+  font-size: 13px;
+  color: #555;
+}
+
 .thin{
   font-weight: 100;
 }
@@ -66,97 +71,29 @@
 }
 
 
-/* SIDEBAR CSS */
-.sidebar {
-  width: 200px;
-  background: var(--navbar-bg);
-  color: white;
-  min-height: 100vh;
-  padding: 25px 20px;
-  flex-shrink: 0;
-}
-
-.sidebar h3 {
-  margin-bottom: 25px;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
-}
-
-.sidebar-header i {
-  font-size: 36px !important;
-  color: white;
-  width: auto;
-  text-align: left;
-}
-
-.sidebar-header h2 {
-  margin: 0;
-  font-size: 30px;
-  font-weight: 700;
-  color: white;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: inherit;
-  text-decoration: none;
-  width: 100%;
-}
-
-.sidebar i{
-  width: 20px;
-  text-align: center;
-  font-size: 20px;
-}
-
-.sidebar li {
-  padding: 12px 10px;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-
-.sidebar li:hover {
-  background: rgba(255,255,255,0.15);
-}
+/* Removed old sidebar styles to use sidebar.css instead */
 
 /* ADMIN DASHBOARD CSS */
-.admin-body,
+/*
+  The outer <div class="admin-layout"> now stacks vertically so that
+  the footer can sit beneath both the sidebar and the main area.  A
+  new .admin-body wrapper holds the horizontal row containing the
+  sidebar + main section.
+*/
 .admin-layout {
   display: flex;
+  flex-direction: column;
+  align-items: stretch; /* ensure children stretch to fill width */
   min-height: 100vh;
 }
 
-/* ensure the layout container uses same flex rules */
-/* MAIN LAYOUT FIX */
-.admin-layout {
+/* horizontal container for sidebar + content area */
+.admin-body {
   display: flex;
-  min-height: 100vh;
+  flex: 1; /* take all available space above the footer */
 }
 
-/* SIDEBAR */
-.sidebar {
-  width: 220px;
-  flex-shrink: 0;
-}
+/* removed responsive admin layout padding wrapper overriding global */
 
 /* RIGHT SIDE */
 .admin-main {
@@ -407,28 +344,26 @@ table thead th {
   font-size: 12px;
 }
 
-/* DROPDOWN */
-.profile-dropdown {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: white;
-  width: 180px;
-  border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-  overflow: hidden;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease-in-out;
+/* PROFILE DROPDOWN */
+.profile-dropdown{
+  position:absolute;
+  top:45px;
+  right:0;
+  width:240px;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  overflow:hidden;
+  z-index:1000;
 }
 
-.dropdown-header {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #2a5298;
+/* HEADER */
+.dropdown-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-bottom:1px solid #eee;
 }
 
 .dropdown-item {
@@ -834,7 +769,8 @@ table thead th {
 }
 
 .secondary-btn {
-  background: white;
+  background: linear-gradient(to right, #2563eb, #1e40af);
+  color:white;
   border: 1px solid #cbd5e1;
   padding: 10px 18px;
   border-radius: 8px;
@@ -846,12 +782,12 @@ table thead th {
   transition: 0.3s;
 }
 
-.primary-btn:hover {
+.secondary-btn:hover{
   transform: translateY(-2px);
 }
 
-.secondary-btn:hover {
-  background: #f1f5f9;
+.primary-btn:hover {
+  transform: translateY(-2px);
 }
 
 /* PREVIOUS SECTION GRID */
@@ -889,16 +825,18 @@ table thead th {
 
 .view-mini,
 .download-mini {
+  background: linear-gradient(to right, #2563eb, #1e40af);
   border: none;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
   margin-left: 8px;
+  transition: 0.2s;
 }
 
-.view-mini {
-  background: #eef2ff;
+.view-mini:hover,.download-mini:hover{
+  transform: translate(0, -2px);
 }
 
 .download-mini {
@@ -1189,6 +1127,11 @@ body.dark-theme .safeguard-card:nth-child(3) i { background: rgba(255,247,237,0.
     font-size: 20px;
   }
 
+  /* admin header title should always be larger; override previous rule */
+  .sidebar .sidebar-header h2 {
+    font-size: 32px !important; /* increase specificity and use !important to beat later rules */
+  }
+
   .sidebar li {
     justify-content: flex-start !important;
     font-size: 16px !important;
@@ -1217,7 +1160,14 @@ body.dark-theme .safeguard-card:nth-child(3) i { background: rgba(255,247,237,0.
 
 .admin-layout {
   display: flex;
+  flex-direction: column; /* stack body and footer vertically */
   min-height: 100vh;
+}
+
+/* container holding sidebar + main area */
+.admin-body {
+  display: flex;
+  flex: 1;
 }
 
 /* SIDEBAR */
@@ -1244,4 +1194,456 @@ body.dark-theme .safeguard-card:nth-child(3) i { background: rgba(255,247,237,0.
   flex: 1;
   padding: 30px;
   background: var(--bg-color);
+}
+
+.dashboard-footer {
+  margin-top: auto;
+}
+
+
+/* Notification */
+
+.notification-container{
+  position:relative;
+  cursor:pointer;
+}
+
+.notification-count{
+  position:absolute;
+  top:-6px;
+  right:-8px;
+  background:red;
+  color:white;
+  font-size:10px;
+  padding:2px 6px;
+  border-radius:50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.2)}
+  100%{transform:scale(1)}
+}
+
+.notification-dropdown{
+  position:absolute;
+  top:50px;
+  right:80px;
+  width:320px;
+  max-height:400px;
+  overflow-y:auto;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  z-index:1000;
+}
+
+.notification-title{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  font-weight:600;
+}
+
+.notification-item{
+  padding:12px;
+  border-bottom:1px solid #eee;
+}
+
+.notification-item.unread{
+  background:#eef4ff;
+  font-weight:600;
+}
+
+.notification-item:hover{
+  background:#f4f6f9;
+}
+
+.notification-time{
+  font-size:12px;
+  color:#777;
+}
+
+.empty-notification{
+  padding:20px;
+  text-align:center;
+}
+
+/* NOTIFICATION TABS */
+
+.notification-tabs{
+  display:flex;
+  gap:15px;
+  padding:10px 12px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+.notification-tabs span{
+  cursor:pointer;
+  padding:5px 8px;
+  border-radius:6px;
+}
+
+.notification-tabs span:hover{
+  background:#f4f6f9;
+}
+
+.active-tab{
+  background:#2a5298;
+  color:white;
+}
+
+/* ========================= */
+/* NOTIFICATIONS PAGE */
+/* ========================= */
+
+.notifications-page{
+  padding:30px;
+  background:var(--bg-color);
+}
+
+/* HEADER */
+.notifications-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.notifications-header h2{
+  font-size:26px;
+  font-weight:700;
+}
+
+/* BACK BUTTON */
+.back-dashboard-btn{
+  background:linear-gradient(to right,#1e3c72,#2a5298);
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.back-dashboard-btn:hover{
+  opacity:0.9;
+}
+
+/* TABS */
+
+.notifications-tabs{
+  display:flex;
+  gap:15px;
+  margin-bottom:20px;
+  border-bottom:1px solid #e5e7eb;
+  padding-bottom:8px;
+}
+
+.notifications-tabs span{
+  cursor:pointer;
+  padding:6px 12px;
+  border-radius:6px;
+  font-size:14px;
+}
+
+.notifications-tabs span:hover{
+  background:#f4f6f9;
+}
+
+.active-tab{
+  background:#2a5298;
+  color:white;
+  font-weight:600;
+}
+
+/* LIST */
+
+.notifications-list{
+  background:white;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  overflow:hidden;
+}
+
+/* CARD */
+
+.notification-card{
+  padding:16px;
+  border-bottom:1px solid #eee;
+  transition:0.2s;
+}
+
+.notification-card:hover{
+  background:#f9fafb;
+}
+
+/* UNREAD */
+
+.notification-card.unread{
+  background:#eef4ff;
+  border-left:4px solid #2a5298;
+}
+
+/* MESSAGE */
+
+.notification-message{
+  font-size:15px;
+  font-weight:500;
+  margin-bottom:4px;
+}
+
+/* META */
+
+.notification-meta{
+  font-size:12px;
+  color:#777;
+}
+
+/* EMPTY STATE */
+
+.empty-notification{
+  padding:25px;
+  text-align:center;
+  color:#777;
+}
+
+.notification-card{
+  cursor:pointer;
+}
+
+.admin-info{
+  display:flex;
+  flex-direction:column;
+  margin-left:8px;
+}
+
+
+/* ADMIN ICON */
+.admin-icon{
+  font-size:34px;
+  color:#2a5298;
+}
+
+/* TEXT CONTAINER */
+.admin-details{
+  display:flex;
+  flex-direction:column;
+}
+
+/* NAME */
+.admin-name{
+  font-weight:600;
+  font-size:15px;
+  color:#2a5298;
+}
+
+.admin-prn{
+  font-size:12px;
+  color:#555;
+}
+
+/* TEXT CONTAINER */
+.admin-details{
+  display:flex;
+  flex-direction:column;
+}
+
+/* NAME */
+.admin-name{
+  font-weight:600;
+  font-size:15px;
+  color:#2a5298;
+}
+
+.modal-overlay{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  width:500px;
+}
+
+.document-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:20px;
+}
+
+.document-card{
+  border:1px solid #ccc;
+  padding:15px;
+  cursor:pointer;
+  text-align:center;
+  border-radius:6px;
+  background:#f8f8f8;
+}
+
+.document-card:hover{
+  background:#e9f2ff;
+}
+
+.close-btn{
+  margin-top:20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.approve-btn {
+  background: #2ecc71;
+  border: none;
+  padding: 10px 18px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  background: #e74c3c;
+  border: none;
+  padding: 10px 18px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* TOP BUTTON CONTAINER */
+
+.modal-actions-top{
+  display:flex;
+  justify-content:flex-end;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+
+/* APPROVE BUTTON */
+
+.approve-btn{
+  background:#2ecc71;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.25s ease;
+}
+
+/* APPROVE HOVER */
+
+.approve-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(46,204,113,0.35);
+}
+
+/* APPROVE CLICK */
+
+.approve-btn:active{
+  transform:scale(0.96);
+}
+
+
+
+/* REJECT BUTTON */
+
+.reject-btn{
+  background:#e74c3c;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.25s ease;
+}
+
+/* REJECT HOVER */
+
+.reject-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(231,76,60,0.35);
+}
+
+.reject-btn:active{
+  transform:scale(0.96);
+}
+
+
+
+/* CLOSE BUTTON */
+
+.modal-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:25px;
+}
+
+.close-btn{
+  background:#1c3d5a;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.25s ease;
+}
+
+.close-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.25);
+}
+
+.close-btn:active{
+  transform:scale(0.96);
+}
+
+.modal-content{
+  animation:modalPop 0.35s ease;
+}
+
+@keyframes modalPop{
+  from{
+    transform:scale(0.9);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.undo-btn{
+  background:#1c3d5a;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.25s ease;
+  margin-right:10px;
+}
+
+.undo-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.25);
 }

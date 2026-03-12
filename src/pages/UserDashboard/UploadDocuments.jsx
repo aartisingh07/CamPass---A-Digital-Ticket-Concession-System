@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../../styles/UserDashboard/uploadDocuments.css";
 
@@ -8,6 +9,7 @@ import harbourStations from "../../data/harbourStations.json";
 
 
 function UploadDocuments() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState("open");
 
   const [aadhaar, setAadhaar] = useState(null);
@@ -15,6 +17,9 @@ function UploadDocuments() {
   const [caste, setCaste] = useState(null);
   const [fromStation, setFromStation] = useState("");
 
+  const student = JSON.parse(localStorage.getItem("student"));
+  const isSCSTStudent =
+    student?.caste === "SC" || student?.caste === "ST";
 
   // VALIDATION CHECK
   const isFormValid =
@@ -40,38 +45,91 @@ function UploadDocuments() {
       ...harbourStations.branches.towards_goregaon
     ].map(station => station.toLowerCase());
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const stationInput = fromStation.trim().toLowerCase();
+  const stationInput = fromStation.trim().toLowerCase();
+  const student = JSON.parse(localStorage.getItem("student"));
 
-    // REQUIRED FIELD CHECK
-    if (!aadhaar || !electricity || stationInput === "") {
-      toast.error("Please fill all required fields");
-      return;
-    }
+  const res = await fetch(`http://localhost:5000/api/students/document-status/${student._id}`);
+  const data = await res.json();
 
-    // STATION VALIDATION USING JSON DATA
-    if (!allStations.includes(stationInput)) {
-      toast.error(
-        "Invalid station name. Please enter a valid Mumbai local station.",
-        { autoClose: 4000 }
-      );
+  if (data.status === "PENDING") {
+    toast.dismiss();
+    toast.info("Your documents are already under review.");
+    return;
+  }
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 4000);
+  if (data.status === "ACTIVE") {
+    toast.dismiss();
+    toast.error("Documents already approved. You cannot upload again.");
+    return;
+  }
 
-      return;
-    }
+  // REQUIRED FIELD CHECK
+  if (!aadhaar || !electricity || stationInput === "") {
+    toast.error("Please fill all required fields");
+    return;
+  }
 
-    // ✅ SUCCESS
-    toast.success("Documents uploaded successfully!");
+  // STATION VALIDATION
+  if (!allStations.includes(stationInput)) {
+    toast.dismiss();
+    toast.error(
+      "Invalid station name. Please enter a valid Mumbai local station.",
+      { autoClose: 4000 }
+    );
 
     setTimeout(() => {
       window.location.reload();
+    }, 4000);
+
+    return;
+  }
+
+  try {
+
+    const formData = new FormData();
+
+    formData.append("studentId", student._id);
+    formData.append("fromStation", fromStation);
+    formData.append("aadharNumber", student.aadhar);
+    formData.append("category", category === "open" ? "OPEN" : "SCST");
+
+    formData.append("aadhar", aadhaar);
+    formData.append("electricity", electricity);
+
+    if (category === "scst") {
+      formData.append("casteCertificate", caste);
+    }
+
+    const response = await fetch(
+      "http://localhost:5000/api/students/upload-documents",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      toast.dismiss();
+      toast.success("Documents uploaded successfully. Your documents are now under review.");
+
+      setTimeout(() => {
+      navigate("/dashboard");
     }, 3000);
-  };
+
+    } else {
+      toast.dismiss();
+      toast.error(data.message);
+    }
+  } catch (error) {
+    toast.dismiss();
+    toast.error("Upload failed");
+  }
+};
 
   return (
     <div className="upload-container">
@@ -89,6 +147,7 @@ function UploadDocuments() {
 
         <button
           type="button"
+          disabled={!isSCSTStudent}
           className={category === "scst" ? "active" : ""}
           onClick={() => setCategory("scst")}
         >
@@ -102,6 +161,7 @@ function UploadDocuments() {
           <label>Aadhaar Card *</label>
           <input
             type="file"
+            accept="application/pdf"
             required
             onChange={(e) => setAadhaar(e.target.files[0])}
           />
@@ -112,6 +172,7 @@ function UploadDocuments() {
           <label>Electricity Bill *</label>
           <input
             type="file"
+            accept="application/pdf"
             required
             onChange={(e) => setElectricity(e.target.files[0])}
           />
@@ -123,6 +184,7 @@ function UploadDocuments() {
             <label>Caste Certificate *</label>
             <input
               type="file"
+              accept="application/pdf"
               required
               onChange={(e) => setCaste(e.target.files[0])}
             />
@@ -165,7 +227,7 @@ function UploadDocuments() {
         <ul>
           <li>Upload clear scanned copies or photos of the required documents.</li>
           <li>Ensure all text and numbers are clearly visible in the uploaded files.</li>
-          <li>Accepted file formats: <strong>PDF, JPG, JPEG, PNG</strong>.</li>
+          <li>Accepted file formats: <strong>PDF only</strong>.</li>
           <li>Maximum file size for each document: <strong>2 MB</strong>.</li>
           <li>The Aadhaar card must match the student's registered name and PRN details.</li>
           <li>The electricity bill must show the current residential address of the student.</li>

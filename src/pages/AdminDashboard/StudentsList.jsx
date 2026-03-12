@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/AdminDashboard/admin.css";
 
-const approvedStudents = [
-  { id: "S2021001", name: "Amit Sharma", branch: "CSE", year: "3rd Year", semester: "Semester 5" },
-  { id: "S2021002", name: "Divya Patel", branch: "IT", year: "3rd Year", semester: "Semester 5" },
-  { id: "S2021003", name: "Rahul Verma", branch: "Mechanical", year: "3rd Year", semester: "Semester 5" },
-  { id: "S2021004", name: "Sneha Kapoor", branch: "CSE", year: "3rd Year", semester: "Semester 5" },
-  { id: "S2021005", name: "Vikram Singh", branch: "IT", year: "3rd Year", semester: "Semester 5" },
-  { id: "S2021006", name: "Pooja Reddy", branch: "Mechanical", year: "3rd Year", semester: "Semester 5" },
-];
-
 const StudentsList = () => {
+
+  const [approvedStudents, setApprovedStudents] = useState([]);
+
+  useEffect(() => {
+
+    fetch("http://localhost:5000/api/admin/approved-students")
+      .then(res => res.json())
+      .then(data => setApprovedStudents(data))
+      .catch(err => console.error(err));
+
+  }, []);
+
   return (
     <div className="main-content">
 
@@ -19,15 +22,15 @@ const StudentsList = () => {
       {/* Filters */}
       <div className="approved-filter-bar">
         <select>
-          <option>Branch: CSE</option>
+          <option>Branch</option>
         </select>
 
         <select>
-          <option>Year: 3rd Year</option>
+          <option>Year</option>
         </select>
 
         <select>
-          <option>Academic Year: 2021-2022</option>
+          <option>Academic Year</option>
         </select>
 
         <select>
@@ -48,31 +51,38 @@ const StudentsList = () => {
               <th>Student ID</th>
               <th>Name</th>
               <th>Branch</th>
-              <th>Year</th>
-              <th>Semester</th>
+              <th>From Station</th>
+              <th>Category</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {approvedStudents.map((student) => (
-              <tr key={student.id}>
-                <td>{student.id}</td>
-                <td>{student.name}</td>
-                <td>{student.branch}</td>
-                <td>{student.year}</td>
-                <td>{student.semester}</td>
-                <td>
-                  <span className="approved-badge">Approved</span>
-                </td>
-                <td>
-                  <button className="edit-btn">
-                    <i className="fas fa-pen"></i>
-                  </button>
-                </td>
+
+            {approvedStudents.length === 0 ? (
+              <tr>
+                <td colSpan="6">No approved students yet</td>
               </tr>
-            ))}
+            ) : (
+
+              approvedStudents.map((student) => (
+                <tr key={student._id}>
+
+                  <td>{student.studentId.prn}</td>
+                  <td>{student.studentId.name}</td>
+                  <td>{student.studentId.branch}</td>
+                  <td>{student.fromStation}</td>
+                  <td>{student.category}</td>
+
+                  <td>
+                    <span className="approved-badge">Approved</span>
+                  </td>
+
+                </tr>
+              ))
+
+            )}
+
           </tbody>
 
         </table>

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState,useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../../styles/UserDashboard/applyConcession.css";
 
 function ApplyConcession() {
@@ -6,7 +8,65 @@ function ApplyConcession() {
   const [period, setPeriod] = useState("monthly");
   const [appDate, setAppDate] = useState(new Date().toISOString().split('T')[0]);
 
+
+  const toastShown = useRef(false);
   const isFormValid = travelClass && period && appDate;
+
+
+  const handleApply = async () => {
+
+  const student = JSON.parse(localStorage.getItem("student"));
+
+  try {
+
+    // first check document status
+    const statusRes = await fetch(
+      `http://localhost:5000/api/students/document-status/${student._id}`
+    );
+
+    const statusData = await statusRes.json();
+
+    if (statusData.status !== "ACTIVE") {
+
+      toast.dismiss();
+      toast.error("Complete document upload and wait for admin approval");
+
+      return;
+    }
+
+    // apply concession
+    const res = await fetch(
+      "http://localhost:5000/api/students/apply-concession",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+          studentId: student._id,
+          period
+        })
+      }
+    );
+
+    const data = await res.json();
+
+    if(data.success){
+      toast.dismiss();
+      toast.success("Concession Applied Successfully");
+    }else{
+      toast.dismiss();
+      toast.error(data.message);
+    }
+
+  } catch(error){
+
+    toast.dismiss();
+    toast.error("Something went wrong");
+
+  }
+
+};
 
   return (
     <div className="concession-layout">
@@ -83,7 +143,7 @@ function ApplyConcession() {
           ⚠ Note: Apply for concession can be done only once.
         </div>
 
-        <button className="apply-btn" disabled={!isFormValid}>
+        <button className="apply-btn" disabled={!isFormValid} onClick={handleApply}>
           Apply for Concession
         </button>
       </div>
@@ -109,3 +169,14 @@ function ApplyConcession() {
 }
 
 export default ApplyConcession;
+
+
+// NOT_UPLOADED
+//       ↓
+// PENDING (documents uploaded, waiting admin review)
+//       ↓
+// ACTIVE (admin approved documents → student can apply concession)
+//       ↓
+// COMPLETED (student applied concession)
+//       ↓
+// ACTIVE again (when ticket expires)

@@ -10,12 +10,7 @@ function Navbar({ toggleSidebar }) {
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef(null);
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, text: "Wait for approval of uploaded documents", read: false },
-    { id: 2, text: "Your uploaded documents were approved", read: false },
-    { id: 3, text: "Re-upload documents for new academic year", read: false }
-  ]);
-
+  const [notifications, setNotifications] = useState([]);
   const unreadCount = notifications.filter(n => !n.read).length;
 
   // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
@@ -63,6 +58,26 @@ function Navbar({ toggleSidebar }) {
     }
   }, []);
 
+
+  useEffect(() => {
+
+  const student = JSON.parse(localStorage.getItem("student"));
+    if (!student) return;
+
+    fetch(`http://localhost:5000/api/students/notifications/${student._id}`)
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.map(n => ({
+          id: n._id,
+          text: n.message,
+          read: n.view === "read"
+        }));
+        setNotifications(formatted);
+      })
+      .catch(() => setNotifications([]));
+
+  }, []);
+
   return (
     <div className="top-header">
       {/* LEFT */}
@@ -91,7 +106,7 @@ function Navbar({ toggleSidebar }) {
             prev.map(n => ({ ...n, read: true }))
           );
         }}>
-          <span className="icon">🔔</span>
+          <span className="icon" onClick={()=>navigate("/dashboard/notifications")}>🔔</span>
 
           {unreadCount > 0 && (
             <span className="notif-badge">{unreadCount}</span>

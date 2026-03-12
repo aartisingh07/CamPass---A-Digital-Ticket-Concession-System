@@ -1,47 +1,64 @@
 import React from "react";
-import "../styles/AdminDashboard/admin.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import "../styles/Components Files/sidebar.css";
 
-import { Link } from "react-router-dom";
+const SidebarAdmin = ({ closeSidebar }) => {
+  const navigate = useNavigate();
 
-const SidebarAdmin = () => {
+  const handleClick = () => {
+    if (window.innerWidth <= 768 && closeSidebar) {
+      closeSidebar();
+    }
+  };
+
   return (
     <div className="sidebar">
+      {/* LOGO */}
       <div className="sidebar-header">
-        <i className="fa-solid fa-graduation-cap"></i>
-        <h2>CamPass</h2>
+        <i className="fa-solid fa-graduation-cap sidebar-logo-icon"></i>
+        <span className="sidebar-title">CamPass</span>
       </div>
-      <ul>
+
+      {/* MENU */}
+      <ul className="sidebar-menu">
         <li>
-          <Link to="/admin-dashboard">
+          <NavLink to="/admin-dashboard" end onClick={handleClick}>
             <i className="fas fa-chart-line"></i>
-            Dashboard
-          </Link>
+            <span>Dashboard</span>
+          </NavLink>
         </li>
         <li>
-          <Link to="/admin-dashboard/students">
+          <NavLink to="/admin-dashboard/students" onClick={handleClick}>
             <i className="fas fa-check-circle"></i>
-            Students List
-          </Link>
+            <span>Approved Students List</span>
+          </NavLink>
         </li>
         <li>
-          <Link to="/admin-dashboard/academic-cycle">
+          <NavLink to="/admin-dashboard/academic-cycle" onClick={handleClick}>
             <i className="fas fa-layer-group"></i>
-            Academic Cycle Management
-          </Link>
+            <span>Academic Cycle Management</span>
+          </NavLink>
         </li>
         <li>
-          <Link to="/admin-dashboard/reports">
+          <NavLink to="/admin-dashboard/reports" onClick={handleClick}>
             <i className="fas fa-file-alt"></i>
-            Academic Reports
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <i className="fas fa-home"></i>
-            Home
-          </Link>
+            <span>Academic Reports</span>
+          </NavLink>
         </li>
       </ul>
+
+      {/* BACK TO HOME */}
+      <div className="sidebar-bottom">
+        <button
+          className="back-home-btn"
+          onClick={() => {
+            navigate("/", { replace: true });
+          }}
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+          Back to Home
+        </button>
+      </div>
     </div>
   );
 };

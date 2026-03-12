@@ -3,7 +3,8 @@
   width: 260px;
   min-width: 260px;   /* 🔥 prevents shrinking */
   flex-shrink: 0;     /* 🔥 VERY IMPORTANT */
-  height: 100vh;
+  height: 100%;
+  flex: 1;            /* 🔥 Fills the wrapper */
   display: flex;
   flex-direction: column;
   background-color: var(--sidebar-bg);
@@ -30,8 +31,9 @@
 /* MENU */
 .sidebar-menu {
   list-style: none;
-  padding: 0 15px;
-  margin-top: 10px;
+  padding: 0 12px;
+  margin-top: 20px;
+  flex: 1;
 }
 
 .sidebar-menu li {
@@ -136,9 +138,12 @@
   top: 0;
   left: -100%;
   width: 260px;
-  height: 100vh;
+  height: 100%;
   z-index: 200;
   transition: left 0.3s ease;
+  background-color: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-wrapper.open {
@@ -150,7 +155,7 @@
   .sidebar-wrapper {
     position: static;
     left: 0;
-    height: 100vh;   /* 🔥 FIX */
+    height: 100%;   /* 🔥 FIX */
   }
 }
 
@@ -183,5 +188,30 @@
 .sidebar a {
   text-decoration: none;
   color: white;
-  display: block;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f7fb;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 8px;
+  color: white;
+}
+
+.sidebar-menu li a.active {
+  background-color: #1e6091;
+  font-weight: 600;
 }

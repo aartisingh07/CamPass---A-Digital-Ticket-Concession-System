@@ -33,7 +33,7 @@ function StudentLogin() {
 
     setStudentData({
       ...studentData,
-      [name]: name === "prn" ? value.toUpperCase() : value,
+      [name]: value,
     });
   };
 
@@ -121,7 +121,7 @@ function StudentLogin() {
             placeholder="PRN Number"
             value={studentData.prn}
             onChange={handleChange}
-            maxLength={18}
+            maxLength={9}
             required
           />
 

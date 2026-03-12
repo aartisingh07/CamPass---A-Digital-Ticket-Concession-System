@@ -5,7 +5,7 @@ const studentSchema = new mongoose.Schema({
   prn: { type: String, unique: true },
   branch: String,
   mobile: String,
-  password: String,   // NEW FIELD
+  password: String,
   aadhar: String,
   caste: String,
   address: {

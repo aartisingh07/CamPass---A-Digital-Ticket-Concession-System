@@ -24,6 +24,9 @@ import AdminHome from "./pages/AdminDashboard/AdminHome";
 import ProtectedStudentRoute from "./routes/ProtectedStudentRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 
+import StudentNotifications from "./pages/UserDashboard/StudentNotifications";
+import AdminNotifications from "./pages/AdminDashboard/AdminNotifications";
+
 function App() {
   return (
     <BrowserRouter>
@@ -44,7 +47,7 @@ function App() {
           <Route path="upload" element={<UploadDocuments />} />
           <Route path="profile" element={<Profile />} />
           <Route path="apply" element={<ApplyConcession />} />
-          {/* Future: <Route path="notifications" element={<Notifications />} /> */}
+          <Route path="notifications" element={<StudentNotifications />} />
           <Route path="concession" element={<MyConcession />} />
         </Route>
 
@@ -54,6 +57,7 @@ function App() {
           <Route path="students" element={<StudentsList />} />
           <Route path="academic-cycle" element={<AcademicCycleManagement />} />
           <Route path="reports" element={<Reports />} />
+          <Route path="notifications" element={<AdminNotifications />} />
         </Route>
 
         {/* FALLBACK */}
