@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import concessionImg from "../../assets/concession.png";
 
 import DashboardCard from "../../components/DashboardCard";
 
@@ -36,21 +37,23 @@ function UserDashboard() {
           <div className="dashboard-box">
             <div className="card-grid">
               <DashboardCard
-                title="Apply for Railway Concession"
-                image="/assets/train.png"
-              />
-              <DashboardCard
                 title="Upload Documents"
                 image="/assets/documents.png"
               />
+
               <DashboardCard
-                title="Profile Details"
-                image="/assets/profile.png"
+                title="Apply for Railway Concession"
+                image="/assets/train.png"
+              />
+              
+              <DashboardCard
+                title="Concession Form"
+                image={concessionImg}
               />
             </div>
 
             <div className="info-box">
-              Please upload the required documents to proceed.
+              ⚠️ <strong>First Step Required:</strong> Please upload your documents before applying for a railway concession.
             </div>
           </div>
         </>

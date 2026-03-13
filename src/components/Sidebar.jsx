@@ -30,13 +30,6 @@ function Sidebar({ closeSidebar }) {
         </li>
 
         <li>
-          <NavLink to="/dashboard/apply" onClick={handleClick}>
-            <i className="fa-solid fa-file-signature"></i>
-            <span>Apply for Concession</span>
-          </NavLink>
-        </li>
-
-        <li>
           <NavLink to="/dashboard/upload" onClick={handleClick}>
             <i className="fa-solid fa-upload"></i>
             <span>Upload Documents</span>
@@ -44,9 +37,9 @@ function Sidebar({ closeSidebar }) {
         </li>
 
         <li>
-          <NavLink to="/dashboard/profile" onClick={handleClick}>
-            <i className="fa-solid fa-user"></i>
-            <span>Profile Details</span>
+          <NavLink to="/dashboard/apply" onClick={handleClick}>
+            <i className="fa-solid fa-file-signature"></i>
+            <span>Apply for Concession</span>
           </NavLink>
         </li>
 

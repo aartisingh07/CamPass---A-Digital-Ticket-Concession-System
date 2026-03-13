@@ -12,8 +12,18 @@ const AcademicCycleManagement = () => {
         <h3>Current Academic Year Control</h3>
 
         <div className="year-row">
-          <label>Academic Year:</label>
-          <input type="text" value="2025–2026" readOnly />
+          <label>Semester:</label>
+          <select>
+            <option>Choose Semester</option>
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+            <option>5th Semester</option>
+            <option>6th Semester</option>
+            <option>7th Semester</option>
+            <option>8th Semester</option>
+          </select>
         </div>
 
         <div className="date-row">

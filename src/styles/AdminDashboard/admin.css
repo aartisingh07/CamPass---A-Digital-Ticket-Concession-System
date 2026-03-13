@@ -27,7 +27,7 @@
 
 /* NAVBAR CSS */
 .admin-navbar {
-  background: var(--navbar-bg);
+  background: linear-gradient(to right, #0a3d62, #1e6091);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -1646,4 +1646,9 @@ body.dark-theme .safeguard-card:nth-child(3) i { background: rgba(255,247,237,0.
 .undo-btn:hover{
   transform:translateY(-2px);
   box-shadow:0 6px 12px rgba(0,0,0,0.25);
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: 500;
 }

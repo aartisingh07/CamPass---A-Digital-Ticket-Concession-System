@@ -153,10 +153,6 @@ const undoApproval = async (id) => {
             </select>
 
             <select>
-              <option>Academic Year</option>
-            </select>
-
-            <select>
               <option>Caste</option>
               <option>Open</option>
               <option>SC/ST</option>

@@ -23,18 +23,29 @@ const StudentsList = () => {
       <div className="approved-filter-bar">
         <select>
           <option>Branch</option>
+          <option>CO</option>
+          <option>IT</option>
+          <option>AR</option>
+          <option>EE</option>
+          <option>ET</option>
         </select>
 
         <select>
-          <option>Year</option>
+            <option>Semester</option>
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+            <option>5th Semester</option>
+            <option>6th Semester</option>
+            <option>7th Semester</option>
+            <option>8th Semester</option>
         </select>
 
         <select>
-          <option>Academic Year</option>
-        </select>
-
-        <select>
-          <option>Status: Approved</option>
+          <option>Status</option>
+          <option>Approved</option>
+          <option>Rejected</option>
         </select>
 
         <div className="approved-search">

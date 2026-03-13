@@ -100,7 +100,7 @@ const NavbarAdmin = ({ toggleSidebar }) => {
           </span>
         )}
         <i className="fa-solid fa-school" style={{ marginRight: '10px', fontSize: '20px' }}></i>
-        <span>Admin <span className="thin">Dashboard</span></span>
+        <span className="header-title">Admin Dashboard</span>
       </div>
 
       <div className="nav-right">

@@ -146,7 +146,15 @@ function Navbar({ toggleSidebar }) {
           {open && (
             <div className="dropdown">
               {student && (
-                <div className="profile-info">
+                <div
+                  className="profile-info"
+                  style={{ cursor: "pointer" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpen(false);
+                    navigate("/dashboard/profile");
+                  }}
+                >
                   <strong>{student.name}</strong>
                   <p>PRN: {student.prn}</p>
                 </div>
